@@ -1,5 +1,6 @@
 import asyncio
 import hashlib
+import logging
 import random
 from typing import Sequence, Any
 
@@ -61,6 +62,7 @@ async def send(bot: NoneBot,
         if ensure_private:
             event = event.copy()
             event['message_type'] = 'private'
+        logging.getLogger('nonebot').info(f'Self: {event.self_id}, send {message}')
         return await bot.send(event, message, **kwargs)
     except CQHttpError:
         if not ignore_failure:
